@@ -1,0 +1,18 @@
+[tool.poetry]
+name = "slider-captcha"
+version = "0.1.0"
+description = ""
+authors = ["wear工程师 <1225186748@qq.com>"]
+readme = "README.md"
+packages = [{ include = "slider_captcha" }]
+
+[tool.poetry.dependencies]
+python = "^3.11"
+fastapi = "^0.103.1"
+uvicorn = "^0.23.2"
+python-multipart = "^0.0.6"
+opencv-python-headless = "^4.8.0.76"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
