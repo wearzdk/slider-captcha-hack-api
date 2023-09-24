@@ -1,7 +1,7 @@
 import os
 import random
 import time
-from fastapi import FastAPI, Form
+from fastapi import FastAPI, Body
 from typing import Annotated, List
 
 from pydantic import BaseModel, Field
@@ -43,11 +43,11 @@ class SliderCaptchaResp(BaseModel):
 
 @app.post("/slider_captcha")
 async def slider_captcha(
-    img_slider: Annotated[str, Form(description="滑块图片")],
-    img_background: Annotated[str, Form(description="背景图片")],
-    auto_cut: Annotated[bool, Form(description="是否自动裁剪滑块图片")] = True,
-    with_track: Annotated[bool, Form(description="是否返回轨迹")] = False,
-    key: Annotated[str, Form(description="验证密码")] = ""
+    img_slider: Annotated[str, Body(description="滑块图片")],
+    img_background: Annotated[str, Body(description="背景图片")],
+    auto_cut: Annotated[bool, Body(description="是否自动裁剪滑块图片")] = True,
+    with_track: Annotated[bool, Body(description="是否返回轨迹")] = False,
+    key: Annotated[str, Body(description="验证密码")] = ""
 ) -> SliderCaptchaResp:
     """滑动验证码"""
     # 简单验证
@@ -71,16 +71,16 @@ async def slider_captcha(
 
 @app.post("/track")
 async def track(
-    start: Annotated[str, Form(description="起始坐标 如0,0")],
-    end: Annotated[str, Form(description="结束坐标 如100,10")],
-    numberList: Annotated[int, Form(description="轨迹点数量")] = 100,
-    le: Annotated[int, Form(description="贝塞尔曲线阶数 越大越复杂")] = 4,
-    deviation: Annotated[int, Form(description="轨迹上下波动的范围")] = 10,
-    bias: Annotated[float, Form(description="波动范围的分布位置")] = 0.5,
-    type: Annotated[int, Form(
+    start: Annotated[str, Body(description="起始坐标 如0,0")],
+    end: Annotated[str, Body(description="结束坐标 如100,10")],
+    numberList: Annotated[int, Body(description="轨迹点数量")] = 100,
+    le: Annotated[int, Body(description="贝塞尔曲线阶数 越大越复杂")] = 4,
+    deviation: Annotated[int, Body(description="轨迹上下波动的范围")] = 10,
+    bias: Annotated[float, Body(description="波动范围的分布位置")] = 0.5,
+    type: Annotated[int, Body(
         description="滑动类型,0表示均速滑动，1表示先慢后快，2表示先快后慢，3表示先慢中间快后慢")] = 0,
-    cbb: Annotated[int, Form(description="在终点来回摆动的次数")] = 0,
-    yhh: Annotated[int, Form(description="摆动幅度")] = 10,
+    cbb: Annotated[int, Body(description="在终点来回摆动的次数")] = 0,
+    yhh: Annotated[int, Body(description="摆动幅度")] = 10,
 ) -> List:
     """滑动验证码轨迹"""
     bezier = bezierTrajectory()

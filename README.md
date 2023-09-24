@@ -8,7 +8,7 @@
 
 ## 接口简介
 
-POST `/slider_captcha` 滑动验证码验证接口
+POST `/slider_captcha` 滑动验证码验证接口 参数为 json
 
 参数：
 
